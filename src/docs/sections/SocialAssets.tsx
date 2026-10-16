@@ -52,7 +52,7 @@ const FILE: Record<Layout, [string, string][]> = {
   ],
 };
 
-const SCALA = 0.2;
+const SCALA = 0.19;
 const abs = (s: CSSProperties): CSSProperties => ({ position: 'absolute', ...s });
 
 /** Anteprima di un template a misura reale, rimpicciolita con transform. Solo libreria. */
@@ -120,7 +120,7 @@ function Riga({ titolo, layout, children }: { titolo: string; layout: Layout; ch
     <>
       <h3 style={{ fontSize: 'var(--drop-fs-h4)' }}>{titolo}</h3>
       <p>{children}</p>
-      <div className="dx-demo" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--drop-space-4)', overflowX: 'auto' }}>
+      <div className="dx-demo" style={{ display: 'flex', flexWrap: 'nowrap', gap: 'var(--drop-space-3)', overflowX: 'auto' }}>
         {TEMI.map(([tema, nome], i) => {
           const [codice, frammento] = FILE[layout][i];
           const href = `${TELA}#${frammento}`;
@@ -140,6 +140,136 @@ function Riga({ titolo, layout, children }: { titolo: string; layout: Layout; ch
   );
 }
 
+/* ------------------------------------------------------------- CAROSELLI */
+
+const PAGINA_CAROSELLI = 'page-85e66434849e';
+const CAR = (f: string) => asset(`brand/esempi/social/carosello/${f}`);
+const NOTTE = '#021222';
+const PAPER = '#E3EFFA';
+const ROSSO = '#F03F35';
+
+/** Foto posizionata come nel PDF: misure e scostamenti reali, ritagliata dal contenitore. */
+const Foto = ({ f, l, t, w, h }: { f: string; l: number; t: number; w: number; h: number }) => (
+  <img src={CAR(f)} alt="" style={abs({ left: l, top: t, width: w, height: h, maxWidth: 'none' })} />
+);
+/** Striscia di 18–20 px con la foto della slide accanto: dà la continuità allo scorrimento. */
+const Striscia = ({ x, w, children }: { x: number; w: number; children: ReactNode }) => (
+  <div aria-hidden="true" style={abs({ left: x, top: 0, width: w, height: 1350, overflow: 'hidden' })}>{children}</div>
+);
+const Freccia = ({ colore }: { colore: string }) => (
+  <svg aria-hidden="true" width="74" height="60" viewBox="0 0 74 60" style={abs({ left: 950, top: 1233 })}>
+    <path d="M4 30 H66 M44 4 L70 30 L44 56" fill="none" stroke={colore} strokeWidth="8" />
+  </svg>
+);
+const Goccia = ({ f }: { f: 'paper' | 'teal' }) => (
+  <img src={asset(`brand/pattern/goccia-${f}.svg`)} alt="" aria-hidden="true"
+       style={abs({ left: 605, top: 566, width: 905, height: 964, opacity: 0.1 })} />
+);
+const Logo = ({ chiaro, centro }: { chiaro: boolean; centro?: boolean }) => (
+  <img src={asset(`brand/loghi/${chiaro ? 'drop.svg' : 'drop-bianco-arancio.svg'}`)} alt="DROP"
+       style={abs(centro ? { left: 377, top: 628, height: 94 } : { left: 60, bottom: 58, height: social.logo.altezza })} />
+);
+const Titolo = ({ top, size, colore, children, w = 900 }: { top: number; size: 60 | 80; colore: string; children: ReactNode; w?: number }) => (
+  <div style={abs({ left: 60, top, width: w, fontSize: size, lineHeight: `${size * 1.2}px`, fontWeight: 700, letterSpacing: '-0.01em', color: colore })}>{children}</div>
+);
+const Corpo = ({ top, colore }: { top: number; colore: string }) => (
+  <div style={abs({ left: 60, top, width: 860, fontSize: 40, lineHeight: '48px', fontWeight: 500, color: colore })}>
+    Strategia e comunicazione per le filiere agroalimentari.
+  </div>
+);
+const Anello = ({ x, y, d, foro, fondo, children }: { x: number; y: number; d: number; foro: number; fondo: string; children: ReactNode }) => (
+  <>
+    <div style={abs({ left: x, top: y, width: d, height: d, borderRadius: '50%', overflow: 'hidden' })}>{children}</div>
+    <div aria-hidden="true" style={abs({ left: x + (d - foro) / 2, top: y + (d - foro) / 2, width: foro, height: foro, borderRadius: '50%', background: fondo })} />
+  </>
+);
+
+const MANI = { f: 'car-mani.jpg', t: -173, w: 2808, h: 1579 };
+const DATI = { f: 'car-dati.jpg', t: -20, w: 2407, h: 1605 };
+const CAMPO = { f: 'car-campo.jpg', l: -15, t: -208, w: 1110, h: 1727 };
+
+const SLIDE: { codice: string; nome: string; frammento: string; fondo: string; el: ReactNode }[] = [
+  { codice: 'Carosello 01', nome: 'Apertura · anello', frammento: 'artboard-d0e7ac2eda75', fondo: NOTTE, el: <>
+      <Anello x={2} y={130} d={1058} foro={598} fondo={NOTTE}><Foto f="car-turbine.jpg" l={-465} t={-186} w={2025} h={1350} /></Anello>
+      <div style={abs({ left: 231, top: 474, width: 600, textAlign: 'center', fontSize: 84, lineHeight: '100px', fontWeight: 700, color: PAPER })}>
+        <span style={{ color: ROSSO }}>Drop</span><br />25 anni<br />di digitale
+      </div>
+      <Logo chiaro={false} /><Freccia colore={PAPER} /></> },
+  { codice: 'Carosello 02', nome: 'Foto e titolo', frammento: 'artboard-4dc564e3dc9f', fondo: NOTTE, el: <>
+      <Foto f="car-strada.jpg" l={-849} t={-13} w={2749} h={1423} />
+      <Striscia x={1061} w={19}><Foto {...MANI} l={-977} /></Striscia>
+      <Goccia f="paper" /><Titolo top={46} size={80} colore={PAPER}>Dal 1998 al 2025:<br />un’unica direzione</Titolo>
+      <Logo chiaro={false} /><Freccia colore={PAPER} /></> },
+  { codice: 'Carosello 03', nome: 'Foto e titolo', frammento: 'artboard-ac8a7f83bda3', fondo: NOTTE, el: <>
+      <Foto {...MANI} l={-996} />
+      <Striscia x={1062} w={18}><Foto {...DATI} l={-107} /></Striscia>
+      <Goccia f="paper" /><Titolo top={46} size={80} colore={PAPER}>Pionieri<br />del digitale</Titolo>
+      <Logo chiaro={false} /><Freccia colore={PAPER} /></> },
+  { codice: 'Carosello 04', nome: 'Foto e titolo', frammento: 'artboard-b6e9edcc94e6', fondo: NOTTE, el: <>
+      <Foto {...DATI} l={-125} />
+      <Striscia x={0} w={19}><Foto {...MANI} l={-2076} /></Striscia>
+      <Goccia f="paper" /><Titolo top={46} size={80} colore={PAPER}>Oltre 500<br />progetti digitali<br />realizzati</Titolo>
+      <Logo chiaro={false} /><Freccia colore={PAPER} /></> },
+  { codice: 'Carosello 05', nome: 'Chiusura · logo e link', frammento: 'artboard-384ae2f4e7c0', fondo: NOTTE, el: <>
+      <Striscia x={0} w={20}><Foto {...DATI} l={-1205} /></Striscia>
+      <Logo chiaro={false} centro />
+      <div style={abs({ left: 60, top: 843, width: 960, textAlign: 'center', fontSize: 70, lineHeight: '84px', fontWeight: 500, color: PAPER })}>Scopri la nostra storia</div>
+      <div style={abs({ left: 60, top: 1044, width: 960, textAlign: 'center', fontSize: 40, lineHeight: '48px', fontWeight: 500, color: ROSSO })}>www.digitaldrop.eu</div></> },
+  { codice: 'Carosello 06', nome: 'Foto e testo', frammento: 'artboard-e4de752a2b6a', fondo: PAPER, el: <>
+      <Goccia f="teal" />
+      <div style={abs({ left: 0, top: 0, width: 1080, height: 716, overflow: 'hidden' })}><Foto {...CAMPO} /></div>
+      <Titolo top={768} size={60} colore={NOTTE} w={760}>Parliamo la lingua del settore primario</Titolo><Corpo top={1015} colore={NOTTE} />
+      <Logo chiaro /><Freccia colore={ROSSO} /></> },
+  { codice: 'Carosello 07', nome: 'Foto piena · testo chiaro', frammento: 'artboard-695b812f221d', fondo: NOTTE, el: <>
+      <Foto {...CAMPO} /><Goccia f="paper" />
+      <Titolo top={49} size={60} colore={PAPER} w={760}>Parliamo la lingua del settore primario</Titolo><Corpo top={296} colore={PAPER} />
+      <Logo chiaro={false} /><Freccia colore={ROSSO} /></> },
+  { codice: 'Carosello 08', nome: 'Testo', frammento: 'artboard-214812fd8f2c', fondo: PAPER, el: <>
+      <Goccia f="teal" />
+      <Titolo top={49} size={60} colore={NOTTE} w={760}>Parliamo la lingua del settore primario</Titolo><Corpo top={296} colore={NOTTE} />
+      <Logo chiaro /><Freccia colore={ROSSO} /></> },
+  { codice: 'Carosello 09', nome: 'Foto piena · testo scuro', frammento: 'artboard-65936ba45558', fondo: PAPER, el: <>
+      <Foto f="car-trattore.jpg" l={-420} t={-222} w={1659} h={1920} /><Goccia f="paper" />
+      <Titolo top={49} size={60} colore={NOTTE} w={760}>Parliamo la lingua del settore primario</Titolo><Corpo top={296} colore={NOTTE} />
+      <Logo chiaro /><Freccia colore={ROSSO} /></> },
+  { codice: 'Carosello 10', nome: 'Chiusura · anello', frammento: 'artboard-999b0fd1b53a', fondo: PAPER, el: <>
+      <Anello x={60} y={195} d={960} foro={544} fondo={PAPER}><Foto {...CAMPO} l={-129} t={-595} w={1376} h={2141} /></Anello>
+      <Logo chiaro centro /></> },
+];
+
+function Slide({ i }: { i: number }) {
+  const s = SLIDE[i];
+  const href = `${TELA}#${s.frammento}`;
+  return (
+    <figure style={{ margin: 0 }}>
+      <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`Apri ${s.codice} · ${s.nome} su Claude Design`}>
+        <div style={{ width: 1080 * SCALA, height: 1350 * SCALA, overflow: 'hidden', borderRadius: 6, boxShadow: 'var(--drop-shadow-sm)' }}>
+          <div style={{ position: 'relative', width: 1080, height: 1350, overflow: 'hidden', transform: `scale(${SCALA})`, transformOrigin: '0 0',
+                        background: s.fondo, fontFamily: 'var(--drop-font)' }}>
+            {s.el}
+          </div>
+        </div>
+      </a>
+      <figcaption className="drop-small" style={{ marginTop: 'var(--drop-space-2)' }}>
+        <a href={href} target="_blank" rel="noopener noreferrer"><strong>{s.codice}</strong></a> · {s.nome}
+      </figcaption>
+    </figure>
+  );
+}
+
+function RigaCarosello({ titolo, da, children }: { titolo: string; da: number; children: ReactNode }) {
+  return (
+    <>
+      <h3 style={{ fontSize: 'var(--drop-fs-h4)' }}>{titolo}</h3>
+      <p>{children}</p>
+      {/* Slide affiancate senza spazio: si legge la continuità delle foto fra una e l'altra. */}
+      <div className="dx-demo" style={{ display: 'flex', flexWrap: 'nowrap', gap: 'var(--drop-space-2)', overflowX: 'auto' }}>
+        {[0, 1, 2, 3, 4].map(k => <Slide key={k} i={da + k} />)}
+      </div>
+    </>
+  );
+}
+
 export function SocialAssets() {
   return (
     <>
@@ -148,9 +278,9 @@ export function SocialAssets() {
           <span className="drop-occhiello">Templates</span>
           <h1>Social assets</h1>
           <p className="drop-lead">
-            I post e le storie di DROP: cinque impaginati, cinque temi, due formati. I template
-            modificabili stanno sulla tela «DROP Post social verticale» in Claude Design; qui
-            sotto le regole e un'anteprima di ognuno.
+            I post, le storie e i caroselli di DROP. I template modificabili stanno sulla tela
+            «DROP Post social verticale» in Claude Design; qui sotto le regole e un'anteprima
+            di ognuno, con il link alla sua tavola.
           </p>
         </div>
 
@@ -158,8 +288,9 @@ export function SocialAssets() {
           <p>
             <strong>Tela dei template:</strong>{' '}
             <a href={TELA} target="_blank" rel="noopener noreferrer">DROP Post social verticale</a>{' '}
-            · pagine <a href={`${TELA}#${PAGINA.feed}`} target="_blank" rel="noopener noreferrer">«Feed 4:5»</a> (Feed 01–20)
-            e <a href={`${TELA}#${PAGINA.storie}`} target="_blank" rel="noopener noreferrer">«Storie 9:16»</a> (Storia 01–10).
+            · pagine <a href={`${TELA}#${PAGINA.feed}`} target="_blank" rel="noopener noreferrer">«Feed 4:5»</a> (Feed 01–20),
+            <a href={`${TELA}#${PAGINA.storie}`} target="_blank" rel="noopener noreferrer">«Storie 9:16»</a> (Storia 01–10)
+            e <a href={`${TELA}#${PAGINA_CAROSELLI}`} target="_blank" rel="noopener noreferrer">«Caroselli 4:5»</a> (Carosello 01–10).
             Clic su un'anteprima per aprire la sua tavola. Si duplica una tavola, si cambiano
             testi e foto: la struttura non si tocca. La tela è privata: va condivisa dal menu
             Condividi a chi deve aprirla.
@@ -217,6 +348,44 @@ export function SocialAssets() {
         <Riga titolo="Foto · Storia 06–10" layout="storiaFoto">
           Foto piena con titolo a 225. Niente logo: in una storia lo mette già il profilo.
         </Riga>
+      </section>
+
+      <section className="dx-section">
+        <h2>Caroselli · 4:5</h2>
+        <p>
+          Sulla tela, pagina{' '}
+          <a href={`${TELA}#${PAGINA_CAROSELLI}`} target="_blank" rel="noopener noreferrer">«Caroselli 4:5»</a>.
+          Un carosello si apre e si chiude con una slide senza foto piena e tiene in mezzo
+          le slide di contenuto. Le regole dei post valgono anche qui; in più:
+        </p>
+        <div className="dx-do-dont">
+          <div className="dx-do">
+            <h4>Sempre</h4>
+            <ul>
+              <li>Apertura e chiusura ad anello: foto dentro un anello (esterno 1058 / interno 598 in apertura, 960 / 544 in chiusura), testo o logo al centro.</li>
+              <li>Freccia in basso a destra (tratto 8 px) su tutte le slide tranne l'ultima: paper sullo scuro e sulle foto, arancione sul chiaro.</li>
+              <li>Continuità: 18–20 px della foto della slide successiva sul bordo destro, e di quella precedente sul bordo sinistro.</li>
+              <li>Slide di contenuto: titolo Sora 700 80/96 (60/72 se c'è il corpo), in alto a 46–49 px.</li>
+              <li>Goccia solo dove l'originale aveva i tratti a filo: paper al 10% sullo scuro e sulle foto, teal al 10% sul chiaro.</li>
+            </ul>
+          </div>
+          <div className="dx-dont">
+            <h4>Mai</h4>
+            <ul>
+              <li>Goccia sull'apertura o sulla chiusura: lì il segno è l'anello.</li>
+              <li>Freccia sull'ultima slide.</li>
+              <li>Foto che non continua sul bordo: si perde l'invito a scorrere.</li>
+            </ul>
+          </div>
+        </div>
+        <RigaCarosello titolo="Carosello narrativo · Carosello 01–05" da={0}>
+          Esempio completo, «Drop 25 anni di digitale», su blu notte: apertura ad anello, tre
+          slide con foto e titolo, chiusura con logo e sito.
+        </RigaCarosello>
+        <RigaCarosello titolo="Template generici · Carosello 06–10" da={5}>
+          I moduli chiari da combinare: foto e testo, foto piena con testo chiaro o scuro, solo
+          testo, chiusura ad anello.
+        </RigaCarosello>
       </section>
     </>
   );

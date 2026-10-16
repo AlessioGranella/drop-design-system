@@ -166,4 +166,13 @@ export const social = {
     corpo:    { size: 40, interlinea: 48, peso: 500, larghezza: 680 },
   },
   logo: { altezza: 68 },
+  /** Caroselli 4:5: apertura e chiusura ad anello, freccia di scorrimento, continuità delle foto. */
+  carosello: {
+    fondoScuro: '#021222', fondoChiaro: '#E3EFFA',
+    anelloApertura: { x: 2, y: 130, diametro: 1058, foro: 598 },
+    anelloChiusura: { x: 60, y: 195, diametro: 960, foro: 544 },
+    freccia: { x: 950, y: 1233, larghezza: 74, altezza: 60, tratto: 8 },
+    continuita: { striscia: [18, 20] as const },
+    gocciaOpacita: 0.10,
+  },
 } as const;
