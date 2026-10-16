@@ -1,0 +1,308 @@
+/* ============================================================================
+   DROP — Design System
+   Fondamenta: colore, tipografia, spazio, griglia.
+
+   I valori marcati ◆ vengono dal Brand Book ufficiale v1.0 (edizione 2026,
+   50 pp., ../../DROP · Brand Book v1.0.pdf): sono normativi e non si toccano.
+   Tutto il resto è derivato, per gli usi che il brand book non copre —
+   stati dell'interfaccia, bordi, fondi tenui, superfici di UI.
+
+   Fonte di verità dei token. Specchio JS in ../tokens.ts: vanno tenuti
+   allineati a mano.
+   ========================================================================== */
+
+/* -------------------------------------------------------------- CARATTERE
+   ◆ 05 — Sora è l'unico carattere del brand. Otto pesi, tre in uso:
+   500 corpo, 600 occhielli, 700 titoli. Font ospitati in casa: il brand
+   book distribuisce i .ttf, non si dipende da Google Fonts. */
+
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 100; font-display: swap; src: url('./font/Sora-Thin.ttf') format('truetype'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 200; font-display: swap; src: url('./font/Sora-ExtraLight.ttf') format('truetype'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 300; font-display: swap; src: url('./font/Sora-Light.ttf') format('truetype'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 400; font-display: swap; src: url('./font/Sora-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 500; font-display: swap; src: url('./font/Sora-Medium.ttf') format('truetype'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 600; font-display: swap; src: url('./font/Sora-SemiBold.ttf') format('truetype'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 700; font-display: swap; src: url('./font/Sora-Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 800; font-display: swap; src: url('./font/Sora-ExtraBold.ttf') format('truetype'); }
+
+:root {
+  /* =========================================== PALETTE PRIMARIA — ◆ 04 p.030
+     Aggiornata il 16/10/2026 con la tavola «NUOVO PANTONE»
+     (../../../Design System/drop-design-system/project/assets/01. COLORI PANTONE CMYK.pdf),
+     che sostituisce i valori del brand book v1.0. Gli hex sono la resa sRGB
+     dei Pantone coated data dal file. */
+
+  --drop-teal:   #044972;  /* ◆ Pantone 3025 C (prima 2186 C · #005077) */
+  --drop-orange: #F03F35;  /* ◆ Pantone 7417 C (prima #E94A31)          */
+
+  /* ------------------------------------------------- SCALE — ◆ 04 p.031
+     Derivano dai due colori brand e servono per superfici, sfondi, bordi e
+     stati hover/active dell'interfaccia. Non sostituiscono mai i colori
+     brand nella composizione del marchio. Ricalcolate sui nuovi colori con
+     gli stessi rapporti di schiarita/scurita delle scale originali. */
+
+  --drop-teal-050: #F2F6F8;
+  --drop-teal-100: #E6EDF1;
+  --drop-teal-200: #C8D7E0;
+  --drop-teal-300: #96B3C4;
+  --drop-teal-400: #5C89A3;
+  --drop-teal-500: #316A8B;
+  --drop-teal-600: #18587D;
+  --drop-teal-700: #044972;  /* ★ = --drop-teal */
+  --drop-teal-800: #033654;
+  --drop-teal-900: #02263C;
+
+  --drop-orange-100: #FDE7E5;
+  --drop-orange-200: #FBC9C7;
+  --drop-orange-300: #F89F9A;
+  --drop-orange-400: #F47169;
+  --drop-orange-500: #F03F35;  /* ★ = --drop-orange */
+  --drop-orange-600: #C8342C;
+  --drop-orange-700: #9E2923;
+
+  /* ------------------------------------------- NEUTRI — ◆ 04 p.032
+     Bianco e nero fanno parte della palette ma non sono mai puri: bianco
+     freddo «Paper», nero blu profondo «Black». Contrasto minimo 4.5:1. */
+
+  --drop-white:    #FFFFFF;  /* ◆ sfondo principale, whitespace generoso   */
+  --drop-paper:    #E3EFFA;  /* ◆ Pantone 649 C · off-white freddo (prima #E8F1FB) */
+  --drop-lavender: #DCE3FA;  /* ◆ accento di superficie, solo in editoriale */
+  --drop-ink:      #1F2A33;  /* ◆ corpo del testo — non i titoli           */
+  --drop-black:    #021222;  /* ◆ Pantone 5395 C · deep navy (prima #001328) */
+
+  /* ---------------------------------------- RUBRICHE SOCIAL — ◆ Nuovo Pantone
+     Ogni rubrica dei social ha una coppia: un fondo scuro e un accento chiaro
+     (pillola del tag, cerchi, goccia). Si usano SOLO nei template social
+     della rubrica, mai nel marchio né sul sito. */
+
+  --drop-campo-scuro:   #472419;  /* ◆ Pantone 476 C  · «Dal campo al digitale»    */
+  --drop-campo-chiaro:  #E9A368;  /* ◆ Pantone 721 C                               */
+  --drop-tech-scuro:    #08433C;  /* ◆ Pantone 3302 C · «Tech for change»          */
+  --drop-tech-chiaro:   #C7E112;  /* ◆ Pantone 382 C                               */
+  --drop-bussola-scuro: #30B9AB;  /* ◆ Pantone 3262 C · «La bussola del marketing» */
+  --drop-bussola-chiaro:#8FD9D4;  /* ◆ Pantone 3242 C                               */
+  --drop-bordeaux:      #6E0B33;  /* ◆ Pantone 209 C  · in tavola, ruolo da definire */
+
+  /* ------------------------------------- DERIVATI (fuori dal brand book)
+     Servono all'interfaccia: linee, testo secondario, fondi di stato.
+     Restano dentro la famiglia cromatica da cui nascono. */
+  --drop-line:        #E5E7EB;
+  --drop-line-strong: #C8D0D8;
+  --drop-ink-soft:    #5C6873;
+
+  /* ---------------------------------------------------- TOKEN SEMANTICI
+     I componenti si agganciano SOLO a questi. Chi ricolora una fascia o
+     un contesto rimappa questi, mai i colori brand in chiaro. */
+
+  --drop-bg:        var(--drop-white);      /* fondo pagina: bianco, ◆ p.032 */
+  --drop-bg-soft:   var(--drop-paper);      /* fascia tenue, card secondarie */
+  --drop-bg-dark:   var(--drop-teal);       /* fascia piena, hero, CTA       */
+  --drop-bg-deep:   var(--drop-black);      /* fondo profondo, footer scuro  */
+  --drop-surface:   var(--drop-white);
+  --drop-border:    var(--drop-line);
+  --drop-border-strong: var(--drop-line-strong);
+
+  --drop-fg:        var(--drop-ink);        /* ◆ corpo in ink              */
+  --drop-fg-title:  var(--drop-teal);       /* ◆ titoli in teal            */
+  --drop-fg-soft:   var(--drop-ink-soft);
+  --drop-fg-muted:  var(--drop-teal-400);
+  --drop-accent:    var(--drop-orange);     /* ◆ parole evidenziate, CTA   */
+  --drop-accent-strong: var(--drop-orange-600);
+
+  --drop-on-dark:       var(--drop-white);
+  --drop-on-dark-muted: var(--drop-teal-200);
+  --drop-on-dark-accent: var(--drop-orange);
+
+  /* Colori dato — serie dei grafici, in ordine di lettura. Il brand book non
+     copre la dataviz: la sequenza nasce dalle due scale, alternando teal e
+     arancione per tenere separati i livelli anche in bianco e nero. */
+  --drop-data-1: var(--drop-teal);
+  --drop-data-2: var(--drop-orange);
+  --drop-data-3: var(--drop-teal-400);
+  --drop-data-4: var(--drop-orange-300);
+  --drop-data-5: var(--drop-teal-800);
+  --drop-data-6: var(--drop-teal-200);
+
+  /* ============================================== TIPOGRAFIA — ◆ 05 p.036-038
+     Un solo carattere. La gerarchia è una scala modulare di ragione ~1.4
+     (quarta giusta): fra due livelli vicini si salta sempre uno step.
+     I valori in punti sono quelli del brand book (impaginato stampa);
+     qui sotto la resa fluida per lo schermo, ancorata agli stessi rapporti. */
+
+  --drop-font: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; /* ◆ */
+
+  --drop-fs-display:  clamp(3rem, 1.6rem + 5.6vw, 6rem);      /* ◆ 72pt   */
+  --drop-fs-h1:       clamp(2.25rem, 1.4rem + 3.4vw, 4rem);   /* ◆ 48pt   */
+  --drop-fs-h2:       clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);/* ◆ 34pt   */
+  --drop-fs-h3:       clamp(1.375rem, 1.1rem + 1vw, 1.875rem);/* ◆ 22pt   */
+  --drop-fs-h4:       1.25rem;                                 /* ◆ 16pt   */
+  --drop-fs-body-lg:  1.125rem;                                /* ◆ 13pt   */
+  --drop-fs-body:     1rem;                                    /* ◆ 10.5pt */
+  --drop-fs-label:    0.875rem;                                /* ◆ eyebrow */
+  --drop-fs-caption:  0.75rem;                                 /* ◆ caption / n. pagina */
+
+  /* ◆ Tre pesi in uso. Gli altri restano disponibili per il display. */
+  --drop-w-body:    500;  /* ◆ Medium — corpo testo, default             */
+  --drop-w-label:   600;  /* ◆ SemiBold — occhielli, eyebrow, label      */
+  --drop-w-title:   700;  /* ◆ Bold — titoli, display, headline          */
+
+  --drop-lh-tight:  1.1;
+  --drop-lh-snug:   1.25;
+  --drop-lh-normal: 1.45;
+  --drop-lh-loose:  1.7;
+
+  --drop-ls-tight: -0.01em;   /* Sora è geometrica: ai corpi display si stringe */
+  --drop-ls-wide:   0.06em;   /* occhielli, caption, numeri di pagina           */
+
+  /* ◆ p.039 — la riga di corpo testo sta fra 50 e 75 caratteri. */
+  --drop-misura: 68ch;
+
+  /* ------------------------------------------------------- SPAZIO — 4 pt */
+  --drop-space-1:  4px;
+  --drop-space-2:  8px;
+  --drop-space-3:  12px;
+  --drop-space-4:  16px;
+  --drop-space-5:  20px;
+  --drop-space-6:  24px;
+  --drop-space-8:  32px;
+  --drop-space-10: 40px;
+  --drop-space-12: 48px;
+  --drop-space-16: 64px;
+  --drop-space-20: 80px;
+  --drop-space-24: 96px;
+
+  /* ------------------------------------------------------ RAGGI & OMBRE
+     Il marchio è costruito su archi a raggio costante: le superfici
+     seguono. Niente angoli vivi su card, foto e pulsanti. */
+  --drop-radius-xs:  4px;
+  --drop-radius-sm:  8px;
+  --drop-radius-md:  14px;
+  --drop-radius-lg:  20px;   /* foto dentro una card */
+  --drop-radius-xl:  28px;   /* card grandi          */
+  --drop-radius-2xl: 36px;
+  --drop-radius-pill: 999px; /* pulsanti, nav, badge */
+
+  /* Le ombre sono tinte di teal, mai grigio neutro: le card galleggiano
+     su fondi fotografici e un'ombra grigia le stacca male. */
+  --drop-shadow-sm: 0 1px 2px rgba(0,76,109,.06), 0 1px 1px rgba(0,76,109,.04);
+  --drop-shadow-md: 0 6px 18px -6px rgba(0,76,109,.18), 0 2px 6px rgba(0,76,109,.08);
+  --drop-shadow-lg: 0 24px 48px -16px rgba(0,76,109,.22), 0 8px 20px -8px rgba(0,76,109,.12);
+  --drop-shadow-card: 0 30px 60px -30px rgba(0,44,66,.35);
+
+  /* ------------------------------------------------------------ MOVIMENTO
+     Solo easing morbidi. Il brand è calmo: niente molle, niente parallasse,
+     niente scroll-jacking, niente tipografia cinetica. */
+  --drop-ease:      cubic-bezier(.2,.7,.2,1);
+  --drop-dur-fast:  120ms;   /* micro-stati: hover di un link      */
+  --drop-dur-base:  220ms;   /* default                            */
+  --drop-dur-slow:  420ms;   /* transizioni di pagina              */
+
+  /* -------------------------------------------------------------- GRIGLIA
+     ◆ 06 p.044 — margini ampi, contenuti in griglie da 3 o 4 colonne.
+     Il primo terzo (o la prima metà) resta vuoto prima del titolo. */
+  --drop-grid-max:    1280px;
+  --drop-grid-cols:   12;
+  --drop-grid-gutter: 24px;
+  --drop-grid-margin: 32px;
+
+  /* ------------------------------------------------ MARCHIO — ◆ 03 p.020-024
+     Tutte le proporzioni sono in unità X. Il marchio misura 8X × 2.3X:
+     da lì si ricava X a qualunque scala, e con X l'area di rispetto.
+
+     Nota: il brand book definisce X come «l'altezza del cerchio interno
+     della O»; nel file vettoriale quel cerchio misura un po' di più della
+     X implicita nella costruzione 8X × 2.3X. Vince la costruzione, che è
+     l'unica verificabile a ogni scala: X = altezza del marchio / 2.3. */
+  --drop-logo-h: 45px;                                  /* ◆ minimo consigliato web/stampa 12mm */
+  --drop-logo-x: calc(var(--drop-logo-h) / 2.3);        /* ◆ unità di costruzione               */
+  --drop-logo-min: 25px;                                /* ◆ minimo assoluto, 7mm               */
+  --drop-logo-descrittore-h: 70px;                      /* ◆ con descrittore, 18mm              */
+  --drop-logo-descrittore-min: 45px;                    /* ◆ minimo assoluto, 12mm              */
+
+  /* ◆ 06 p.042 — il pattern goccia decora una foto al 10-25% di opacità. */
+  --drop-pattern-opacity: .18;
+}
+
+/* ============================================================= BASE / TIPO */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--drop-bg);
+  color: var(--drop-fg);
+  font-family: var(--drop-font);
+  font-weight: var(--drop-w-body);       /* ◆ il corpo è Medium, non Regular */
+  font-size: var(--drop-fs-body);
+  line-height: var(--drop-lh-loose);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ◆ p.038 — titoli sempre in teal, corpo sempre in ink. Mai colori diversi
+   dentro lo stesso livello. L'unica eccezione è la parola evidenziata in
+   arancione, che è un livello a sé (.drop-accento). */
+h1, h2, h3, h4, .drop-display {
+  font-family: var(--drop-font);
+  font-weight: var(--drop-w-title);
+  line-height: var(--drop-lh-snug);
+  letter-spacing: var(--drop-ls-tight);
+  color: var(--drop-fg-title);
+  margin: 0 0 var(--drop-space-4);
+  text-wrap: balance;
+}
+.drop-display { font-size: var(--drop-fs-display); line-height: var(--drop-lh-tight); }
+h1 { font-size: var(--drop-fs-h1); line-height: var(--drop-lh-tight); }
+h2 { font-size: var(--drop-fs-h2); }
+h3 { font-size: var(--drop-fs-h3); }
+h4 { font-size: var(--drop-fs-h4); font-weight: var(--drop-w-label); letter-spacing: 0; }
+
+p {
+  margin: 0 0 var(--drop-space-4);
+  max-width: var(--drop-misura);        /* ◆ 50-75 caratteri per riga */
+}
+.drop-lead { font-size: var(--drop-fs-body-lg); line-height: 1.6; }
+.drop-small { font-size: var(--drop-fs-label); line-height: var(--drop-lh-normal); }
+
+strong, b { font-weight: var(--drop-w-title); color: inherit; }
+
+/* ◆ p.030 — l'arancione evidenzia: la parola chiave dentro un titolo o un
+   paragrafo. Non è mai un colore di testo corrente. */
+.drop-accento { color: var(--drop-accent); font-weight: var(--drop-w-title); }
+
+/* Caption e numero di pagina: piccoli, tracciati, mai in nero. */
+.drop-caption {
+  font-size: var(--drop-fs-caption);
+  font-weight: var(--drop-w-body);
+  letter-spacing: var(--drop-ls-wide);
+  color: var(--drop-fg-muted);
+}
+
+a { color: var(--drop-accent); text-decoration: none; border-bottom: 1px solid currentColor;
+    transition: opacity var(--drop-dur-fast) var(--drop-ease); }
+a:hover { opacity: .7; }
+
+/* ================================================================ GRIGLIA */
+
+.drop-container {
+  width: 100%; max-width: var(--drop-grid-max);
+  margin-inline: auto; padding-inline: var(--drop-grid-margin);
+}
+
+.drop-griglia {
+  display: grid;
+  grid-template-columns: repeat(var(--drop-grid-cols), minmax(0, 1fr));
+  gap: var(--drop-grid-gutter);
+}
+.drop-col-1{grid-column:span 1}.drop-col-2{grid-column:span 2}.drop-col-3{grid-column:span 3}
+.drop-col-4{grid-column:span 4}.drop-col-5{grid-column:span 5}.drop-col-6{grid-column:span 6}
+.drop-col-7{grid-column:span 7}.drop-col-8{grid-column:span 8}.drop-col-9{grid-column:span 9}
+.drop-col-10{grid-column:span 10}.drop-col-11{grid-column:span 11}.drop-col-12{grid-column:span 12}
+
+/* La griglia segue l'AREA, non la finestra: nei layout con barra laterale
+   serve `container-type: inline-size` sul contenitore del contenuto, o le
+   media query guardano la finestra e le card non si adattano. */
+@container (max-width: 1024px) { .drop-griglia { --drop-grid-cols: 8 } .drop-col-m-4{grid-column:span 4}.drop-col-m-8{grid-column:span 8} }
+@container (max-width: 720px)  { .drop-griglia { --drop-grid-cols: 4 } .drop-col-s-2{grid-column:span 2}.drop-col-s-4{grid-column:span 4} }
+@media (max-width: 1024px) { .drop-griglia { --drop-grid-cols: 8 } [class*="drop-col-"]{grid-column:span 4} .drop-col-m-8{grid-column:span 8} }
+@media (max-width: 720px)  { .drop-griglia { --drop-grid-cols: 4 } [class*="drop-col-"]{grid-column:span 4} :root{--drop-grid-margin:20px} }

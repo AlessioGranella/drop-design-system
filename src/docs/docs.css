@@ -1,0 +1,118 @@
+/* Interfaccia della libreria. Non fa parte del design system consegnabile:
+   qui si può usare qualunque cosa serva a documentare, anche fuori brand. */
+
+.dx { display: grid; grid-template-columns: 272px 1fr; min-height: 100vh; }
+
+.dx-nav {
+  background: var(--drop-teal-900); color: var(--drop-on-dark);
+  padding: var(--drop-space-8) 0; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.dx-nav__brand { padding: 0 var(--drop-space-6) var(--drop-space-6); }
+.dx-nav__brand img { height: 34px; display: block; }
+.dx-nav__brand small { display: block; margin-top: var(--drop-space-3); color: var(--drop-teal-300);
+  font-size: var(--drop-fs-caption); letter-spacing: var(--drop-ls-wide); text-transform: uppercase; }
+.dx-nav__group { margin-top: var(--drop-space-6); }
+.dx-nav__group h5 { margin: 0 var(--drop-space-6) var(--drop-space-2); font-size: var(--drop-fs-caption);
+  text-transform: uppercase; letter-spacing: var(--drop-ls-wide); color: var(--drop-teal-400); font-weight: 600; }
+.dx-nav__link {
+  display: block; padding: var(--drop-space-2) var(--drop-space-6);
+  color: var(--drop-on-dark); text-decoration: none; font-size: var(--drop-fs-label);
+  border: 0; border-left: 3px solid transparent; opacity: .85;
+}
+.dx-nav__link:hover { opacity: 1; }
+.dx-nav__link[aria-current='true'] { border-left-color: var(--drop-orange); color: var(--drop-orange); opacity: 1; font-weight: 600; }
+.dx-nav__nota { margin: var(--drop-space-8) var(--drop-space-6) 0; font-size: 11px;
+  color: var(--drop-teal-400); line-height: 1.6; }
+
+.dx-main { padding: var(--drop-space-16) var(--drop-space-12) var(--drop-space-24);
+  container-type: inline-size; background: var(--drop-bg); }
+.dx-section { max-width: 1100px; }
+.dx-section + .dx-section { margin-top: var(--drop-space-24); }
+.dx-h { margin-bottom: var(--drop-space-8); }
+.dx-h p { max-width: 62ch; }
+
+.dx-demo { background: var(--drop-white); border: 1px solid var(--drop-border);
+  border-radius: var(--drop-radius-lg); padding: var(--drop-space-8); margin-bottom: var(--drop-space-4); }
+.dx-demo--paper { background: var(--drop-paper); }
+.dx-demo--teal { background: var(--drop-teal); border-color: transparent; }
+.dx-row { display: flex; flex-wrap: wrap; gap: var(--drop-space-4); align-items: center; }
+
+.dx-code { background: var(--drop-teal-900); color: #C7D9E1; border-radius: var(--drop-radius-md);
+  padding: var(--drop-space-4) var(--drop-space-6); font-size: var(--drop-fs-caption);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; line-height: 1.7;
+  overflow-x: auto; margin: 0 0 var(--drop-space-8); }
+.dx-code b { color: var(--drop-orange-300); font-weight: 400; }
+
+.dx-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--drop-space-3); }
+.dx-swatch { position: relative; border-radius: var(--drop-radius-md); overflow: hidden;
+  border: 1px solid var(--drop-border); background: var(--drop-white); }
+.dx-swatch__chip { height: 72px; border: 0; padding: 0; width: 100%; display: block; cursor: copy; font: inherit; }
+.dx-swatch__chip:focus-visible { outline: 2px solid var(--drop-teal); outline-offset: -3px; }
+.dx-swatch__meta { padding: var(--drop-space-2) var(--drop-space-3); font-size: var(--drop-fs-caption); }
+.dx-swatch__meta strong { display: block; color: var(--drop-fg-title); }
+.dx-swatch code { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 0;
+  cursor: copy; color: var(--drop-fg-muted); font-size: 11px; font-family: ui-monospace, Menlo, monospace; }
+.dx-swatch code:hover { color: var(--drop-teal); }
+.dx-copiato { position: absolute; inset: 0; display: grid; place-items: center;
+  background: rgba(0,40,65,.92); color: var(--drop-white);
+  font-size: 11px; letter-spacing: var(--drop-ls-wide); text-transform: uppercase;
+  border-radius: var(--drop-radius-md); pointer-events: none; }
+.dx-suggerimento { font-size: 11px; color: var(--drop-fg-muted); }
+
+/* Striscia di scala: i passi di una rampa uno accanto all'altro. */
+.dx-scala { display: flex; border-radius: var(--drop-radius-md); overflow: hidden; border: 1px solid var(--drop-border); }
+.dx-scala > button { flex: 1; border: 0; padding: 0; cursor: copy; height: 92px;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 2px;
+  font: inherit; font-size: 10px; letter-spacing: .04em; padding-bottom: 6px; }
+
+.dx-note { border-left: 3px solid var(--drop-orange); background: var(--drop-orange-100);
+  padding: var(--drop-space-4) var(--drop-space-6); border-radius: 0 var(--drop-radius-md) var(--drop-radius-md) 0;
+  margin-bottom: var(--drop-space-6); }
+.dx-note p:last-child { margin-bottom: 0; }
+.dx-note--teal { border-left-color: var(--drop-teal); background: var(--drop-teal-050); }
+
+.dx-do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: var(--drop-space-4); margin-bottom: var(--drop-space-8); }
+.dx-do-dont > div { border-radius: var(--drop-radius-md); padding: var(--drop-space-4) var(--drop-space-6); }
+.dx-do { background: var(--drop-teal-050); border: 1px solid var(--drop-teal-200); }
+.dx-dont { background: var(--drop-orange-100); border: 1px solid var(--drop-orange-200); }
+.dx-do h4, .dx-dont h4 { margin-bottom: var(--drop-space-2); font-size: var(--drop-fs-caption);
+  text-transform: uppercase; letter-spacing: var(--drop-ls-wide); }
+.dx-do h4 { color: var(--drop-teal); } .dx-dont h4 { color: var(--drop-orange-700); }
+.dx-do ul, .dx-dont ul { margin: 0; padding-left: var(--drop-space-4); font-size: var(--drop-fs-label);
+  line-height: 1.6; color: var(--drop-fg); }
+.dx-do li, .dx-dont li { margin-bottom: var(--drop-space-2); }
+
+.dx-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--drop-space-3); }
+.dx-tile { background: var(--drop-white); border: 1px solid var(--drop-border); border-radius: var(--drop-radius-md);
+  padding: var(--drop-space-4); display: grid; gap: var(--drop-space-2); justify-items: center; text-align: center; }
+.dx-tile--scuro { background: var(--drop-teal); border-color: transparent; }
+.dx-tile img { height: 44px; width: auto; max-width: 100%; object-fit: contain; }
+.dx-tile span { font-size: 11px; color: var(--drop-fg-muted); word-break: break-word; }
+.dx-tile--scuro span { color: var(--drop-teal-200); }
+
+/* Tabella di documentazione: token a sinistra, che cos'è a destra. */
+.dx-tabella { width: 100%; border-collapse: collapse; font-size: var(--drop-fs-label); margin-bottom: var(--drop-space-8); }
+.dx-tabella th { text-align: left; font-weight: 600; color: var(--drop-fg-title);
+  padding: var(--drop-space-2) var(--drop-space-4); border-bottom: 2px solid var(--drop-border); }
+.dx-tabella td { padding: var(--drop-space-2) var(--drop-space-4); border-bottom: 1px solid var(--drop-border);
+  vertical-align: top; }
+.dx-tabella code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--drop-teal-600); }
+
+.dx-galleria { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--drop-space-4); }
+.dx-gal { margin: 0; }
+.dx-gal button { display: block; width: 100%; padding: 0; border: 1px solid var(--drop-border);
+  border-radius: var(--drop-radius-md); overflow: hidden; background: var(--drop-teal-050); cursor: zoom-in; line-height: 0; }
+.dx-gal button:hover { border-color: var(--drop-teal-300); }
+.dx-gal img { width: 100%; height: 200px; object-fit: contain; display: block; }
+.dx-gal figcaption { padding-top: var(--drop-space-2); font-size: var(--drop-fs-caption); color: var(--drop-fg-soft); }
+.dx-lightbox { position: fixed; inset: 0; z-index: 50; display: grid; place-content: center; gap: var(--drop-space-4);
+  padding: var(--drop-space-12); background: rgba(0,19,40,.9); cursor: zoom-out; }
+.dx-lightbox img { max-width: min(1200px, 92vw); max-height: 82vh; border-radius: var(--drop-radius-md); }
+.dx-lightbox p { color: var(--drop-white); text-align: center; margin: 0; max-width: none; }
+
+@media (max-width: 900px) {
+  .dx { grid-template-columns: 1fr; }
+  .dx-nav { position: static; height: auto; }
+  .dx-main { padding: var(--drop-space-8) var(--drop-space-4); }
+  .dx-do-dont { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,269 @@
+/* ============================================================================
+   DROP — Componenti
+   Regola: solo token semantici (--drop-bg / -fg / -accent / -on-dark…), mai
+   i colori brand in chiaro dentro un componente. Spaziature sempre dalla
+   scala 4 pt. Raggi sempre dai token: niente angoli vivi.
+   ========================================================================== */
+
+/* ------------------------------------------------------------- OCCHIELLO
+   ◆ 06 p.048 — l'eyebrow-tick sta in alto a sinistra sopra il titolo: una
+   riga di 40×2 px in arancione e sotto l'etichetta. È la firma tipografica
+   di una sezione DROP. */
+.drop-occhiello {
+  display: inline-block; position: relative;
+  padding-top: 10px; margin-bottom: var(--drop-space-3);
+  font-weight: var(--drop-w-label);
+  font-size: var(--drop-fs-label);
+  letter-spacing: var(--drop-ls-wide);
+  color: var(--drop-fg-title);
+}
+.drop-occhiello::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 40px; height: 2px; background: var(--drop-accent);
+}
+.drop-occhiello--chiaro { color: var(--drop-on-dark); }
+
+/* --------------------------------------------------------------- BOTTONI
+   Sempre a pillola. L'arancione è l'azione primaria; il teal la secondaria.
+   In hover l'arancione scende di uno step, non cambia tinta. */
+.drop-btn {
+  display: inline-flex; align-items: center; gap: var(--drop-space-2);
+  font-family: var(--drop-font); font-weight: var(--drop-w-title);
+  font-size: var(--drop-fs-label); line-height: 1;
+  padding: 13px var(--drop-space-6);
+  border-radius: var(--drop-radius-pill);
+  border: 1.5px solid transparent;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  background: var(--drop-accent); color: var(--drop-white);
+  transition: background var(--drop-dur-fast) var(--drop-ease),
+              color var(--drop-dur-fast) var(--drop-ease),
+              border-color var(--drop-dur-fast) var(--drop-ease),
+              transform var(--drop-dur-fast) var(--drop-ease);
+}
+.drop-btn:hover { background: var(--drop-accent-strong); }
+.drop-btn:active { transform: scale(.98); }   /* pressione appena accennata */
+.drop-btn--secondario { background: var(--drop-teal); color: var(--drop-white); }
+.drop-btn--secondario:hover { background: var(--drop-teal-800); }
+.drop-btn--contorno { background: transparent; color: var(--drop-teal); border-color: var(--drop-teal); }
+.drop-btn--contorno:hover { background: var(--drop-teal); color: var(--drop-white); }
+.drop-btn--su-scuro { background: rgba(255,255,255,.12); color: var(--drop-on-dark); border-color: rgba(255,255,255,.4); }
+.drop-btn--su-scuro:hover { background: rgba(255,255,255,.2); }
+.drop-btn--s { padding: var(--drop-space-2) var(--drop-space-4); font-size: var(--drop-fs-caption); }
+
+/* ------------------------------------------------------------------ CARD
+   ◆ 06 p.044 — anatomia del deck: foto 3:4 in alto, titolo, una frase.
+   Nessun bordo a filo: la separazione la fa l'ombra, non il tratto. */
+.drop-card {
+  background: var(--drop-surface);
+  border-radius: var(--drop-radius-xl);
+  padding: var(--drop-space-5) var(--drop-space-5) var(--drop-space-6);
+  box-shadow: var(--drop-shadow-card);
+  display: flex; flex-direction: column; gap: var(--drop-space-4);
+}
+.drop-card__media {
+  border-radius: var(--drop-radius-lg); overflow: hidden;
+  aspect-ratio: 3 / 4; background: var(--drop-teal-100);
+}
+.drop-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.drop-card h3 { margin: 0; }
+.drop-card p { margin: 0; font-size: var(--drop-fs-label); line-height: 1.55; }
+
+/* ◆ 06 p.044 — una card su tre va in teal pieno: serve a dare ritmo a una
+   griglia 3-up. Non è decorazione, è la regola di composizione. */
+.drop-card--scura { background: var(--drop-bg-dark); color: var(--drop-on-dark); }
+.drop-card--scura h1, .drop-card--scura h2,
+.drop-card--scura h3, .drop-card--scura h4 { color: var(--drop-on-dark); }
+.drop-card--scura p { color: var(--drop-on-dark); opacity: .92; }
+.drop-card--paper { background: var(--drop-bg-soft); box-shadow: none; }
+
+/* --------------------------------------------------- TILE DI SERVIZIO
+   Foto verticale con didascalia su fondo lavanda: il modulo della slide
+   «Di cosa ci occupiamo?». Il lavanda vive solo qui e in editoriale. */
+.drop-tile {
+  border-radius: var(--drop-radius-lg); overflow: hidden;
+  display: flex; flex-direction: column; text-align: center;
+  background: transparent; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--drop-font);
+  transition: transform var(--drop-dur-base) var(--drop-ease),
+              box-shadow var(--drop-dur-base) var(--drop-ease);
+}
+.drop-tile:hover { transform: translateY(-3px); box-shadow: var(--drop-shadow-md); }
+.drop-tile__media { aspect-ratio: 3 / 4; background-size: cover; background-position: center; }
+.drop-tile__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.drop-tile__testo {
+  background: var(--drop-lavender); color: var(--drop-fg-title);
+  padding: var(--drop-space-4) var(--drop-space-3) var(--drop-space-5);
+  font-weight: var(--drop-w-title); font-size: var(--drop-fs-label); line-height: 1.3;
+}
+
+/* ------------------------------------------------------ BADGE DI SETTORE
+   Cerchio perfetto con anello arancione, agganciato al piede di una foto
+   verticale: Agri · Food · Formazione. L'unico «contenitore-etichetta»
+   del brand, al posto delle icone. */
+.drop-settore { position: relative; }
+.drop-settore__media { aspect-ratio: 2 / 3; overflow: hidden; }
+.drop-settore__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.drop-settore__badge {
+  position: absolute; left: 50%; bottom: -32px; transform: translateX(-50%);
+  width: 124px; height: 124px; border-radius: 50%;
+  background: var(--drop-white); border: 2.5px solid var(--drop-accent);
+  display: grid; place-items: center;
+  font-weight: var(--drop-w-title); font-size: var(--drop-fs-h4);
+  color: var(--drop-fg-title); box-shadow: var(--drop-shadow-sm);
+}
+
+/* ------------------------------------------------------------- CITAZIONE
+   Il claim del brand, in grande, con la parola chiave in arancione. */
+.drop-citazione {
+  border-left: 3px solid var(--drop-accent);
+  padding-left: var(--drop-space-6);
+  margin: 0;
+}
+.drop-citazione p {
+  font-size: var(--drop-fs-h3); font-weight: var(--drop-w-title);
+  line-height: var(--drop-lh-snug); letter-spacing: var(--drop-ls-tight);
+  color: var(--drop-fg-title); margin-bottom: var(--drop-space-3);
+}
+.drop-citazione footer { font-size: var(--drop-fs-caption); letter-spacing: var(--drop-ls-wide); color: var(--drop-fg-muted); }
+
+/* ------------------------------------------------------------ FORM
+   Bordo teal-200 di 1.5px che passa all'arancione in focus, con un alone
+   morbido. Niente ombre interne, niente sfondi grigi. */
+.drop-campo {
+  font-family: var(--drop-font); font-weight: var(--drop-w-body);
+  font-size: var(--drop-fs-body);
+  padding: 13px var(--drop-space-5);
+  border-radius: var(--drop-radius-pill);
+  border: 1.5px solid var(--drop-teal-200);
+  background: var(--drop-white); color: var(--drop-fg);
+  outline: none; width: 100%;
+  transition: border-color var(--drop-dur-fast) var(--drop-ease),
+              box-shadow var(--drop-dur-fast) var(--drop-ease);
+}
+.drop-campo::placeholder { color: var(--drop-fg-muted); }
+.drop-campo:focus { border-color: var(--drop-accent); box-shadow: 0 0 0 4px var(--drop-orange-100); }
+.drop-campo--area { border-radius: var(--drop-radius-md); min-height: 120px; resize: vertical; }
+.drop-campo--su-scuro {
+  background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.3); color: var(--drop-on-dark);
+}
+.drop-campo--su-scuro::placeholder { color: rgba(255,255,255,.55); }
+.drop-campo--su-scuro:focus { border-color: var(--drop-accent); background: rgba(255,255,255,.14); box-shadow: none; }
+.drop-etichetta {
+  display: block; margin-bottom: var(--drop-space-2);
+  font-size: var(--drop-fs-label); font-weight: var(--drop-w-label); color: var(--drop-fg-title);
+}
+
+/* ------------------------------------------------------------------ NAV
+   Barra a pillola bianca che galleggia sul contenuto. La voce attiva è
+   arancione: è l'unico uso dell'accento nella navigazione. */
+.drop-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--drop-space-6);
+  padding: var(--drop-space-3) var(--drop-space-5);
+  background: var(--drop-white);
+  border: 1px solid var(--drop-teal-100);
+  border-radius: var(--drop-radius-pill);
+  box-shadow: var(--drop-shadow-md);
+}
+.drop-nav__voci { display: flex; gap: var(--drop-space-8); }
+.drop-nav a {
+  color: var(--drop-fg-title); font-weight: var(--drop-w-label);
+  font-size: var(--drop-fs-label); border: 0; padding: var(--drop-space-1) 0;
+}
+.drop-nav a[aria-current='page'] { color: var(--drop-accent); }
+.drop-nav img { height: 30px; display: block; }
+
+/* ---------------------------------------------------------------- FASCE
+   Una fascia è a tutta larghezza; il contenuto sta nel wrapper interno.
+   Il padding orizzontale va SUL WRAPPER INTERNO, non sulla fascia:
+   altrimenti i bordi sinistri di fasce diverse non combaciano. */
+.drop-fascia { padding-block: var(--drop-space-24); }
+.drop-fascia__inner { max-width: var(--drop-grid-max); margin-inline: auto; padding-inline: var(--drop-grid-margin); }
+.drop-fascia--bianca { background: var(--drop-bg); }
+.drop-fascia--paper { background: var(--drop-bg-soft); }
+.drop-fascia--teal { background: var(--drop-bg-dark); color: var(--drop-on-dark); position: relative; overflow: hidden; }
+.drop-fascia--nera { background: var(--drop-bg-deep); color: var(--drop-on-dark); position: relative; overflow: hidden; }
+.drop-fascia--teal h1, .drop-fascia--teal h2, .drop-fascia--teal h3, .drop-fascia--teal h4,
+.drop-fascia--nera h1, .drop-fascia--nera h2, .drop-fascia--nera h3, .drop-fascia--nera h4 { color: var(--drop-on-dark); }
+/* Una regola globale su `p` batte il colore ereditato dalla classe antenata:
+   il testo su fondo scuro va dichiarato qui, esplicitamente. */
+.drop-fascia--teal p, .drop-fascia--nera p { color: var(--drop-on-dark); }
+.drop-fascia--teal .drop-caption, .drop-fascia--nera .drop-caption { color: var(--drop-on-dark-muted); }
+
+/* --------------------------------------------------------- PATTERN GOCCIA
+   ◆ 06 p.042 — bianco su teal, sempre. Mai teal su bianco, mai ruotato a
+   caso. Sopra una foto scende al 10-25% di opacità. */
+.drop-pattern {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: var(--drop-pattern-src);
+  background-repeat: no-repeat;
+  background-position: var(--drop-pattern-pos, right -8% center);
+  background-size: var(--drop-pattern-size, auto 180%);
+  opacity: var(--drop-pattern-opacity);
+}
+.drop-fascia--teal > *, .drop-fascia--nera > * { position: relative; z-index: 1; }
+
+/* ------------------------------------------------------------------ FOTO
+   ◆ 06 p.043 — 3:4 verticale per le card, 16:9 per il full-bleed.
+   Mai 1:1 squadrato: il quadrato non è un formato DROP. */
+.drop-media { overflow: hidden; border-radius: var(--drop-radius-lg); }
+.drop-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.drop-media--card { aspect-ratio: 3 / 4; }
+.drop-media--larga { aspect-ratio: 16 / 9; }
+.drop-media--ritratto { aspect-ratio: 2 / 3; }
+.drop-media--piena { border-radius: 0; }
+
+/* ---------------------------------------------------------------- FOOTER */
+.drop-footer { background: var(--drop-teal-900); color: var(--drop-on-dark); padding-block: var(--drop-space-16) var(--drop-space-8); }
+.drop-footer__inner { max-width: var(--drop-grid-max); margin-inline: auto; padding-inline: var(--drop-grid-margin);
+  display: grid; grid-template-columns: 1.2fr 2fr; gap: var(--drop-space-16); align-items: start; }
+.drop-footer__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--drop-space-8); }
+.drop-footer img { height: 56px; }
+.drop-footer h4 { color: var(--drop-on-dark); opacity: .7; font-size: var(--drop-fs-caption);
+  letter-spacing: var(--drop-ls-wide); margin-bottom: var(--drop-space-3); }
+.drop-footer a { display: block; color: var(--drop-on-dark); opacity: .85; border: 0;
+  font-size: var(--drop-fs-label); padding: var(--drop-space-1) 0; }
+.drop-footer a:hover { opacity: 1; }
+.drop-footer__base { max-width: var(--drop-grid-max); margin: var(--drop-space-12) auto 0;
+  padding: var(--drop-space-6) var(--drop-grid-margin) 0; border-top: 1px solid rgba(255,255,255,.12);
+  display: flex; justify-content: space-between; gap: var(--drop-space-6);
+  font-size: var(--drop-fs-caption); opacity: .6; }
+
+/* ----------------------------------------------------------------- SLIDE
+   ◆ 07 p.048 — il deck: 16:9, occhiello-tick in alto a sinistra, marchio e
+   numero di slide in basso a sinistra. Margini interni 22 mm su 1920×1080,
+   cioè il 4,1% della larghezza. */
+.drop-slide {
+  aspect-ratio: 16 / 9; position: relative; overflow: hidden;
+  background: var(--drop-white); container-type: inline-size;
+  border-radius: var(--drop-radius-md); box-shadow: var(--drop-shadow-md);
+}
+.drop-slide__inner { position: absolute; inset: 4.1%; display: flex; flex-direction: column; }
+.drop-slide__piede {
+  margin-top: auto; display: flex; align-items: center; gap: var(--drop-space-3);
+  font-size: var(--drop-fs-caption); letter-spacing: var(--drop-ls-wide); color: var(--drop-fg-muted);
+}
+.drop-slide__piede img { height: 22px; display: block; }
+.drop-slide--teal { background: var(--drop-bg-dark); color: var(--drop-on-dark); }
+.drop-slide--teal h1, .drop-slide--teal h2, .drop-slide--teal h3 { color: var(--drop-on-dark); }
+.drop-slide--teal p { color: var(--drop-on-dark); }
+.drop-slide--teal .drop-slide__piede { color: var(--drop-on-dark-muted); }
+
+/* --------------------------------------------------------------- TABELLA */
+.drop-tabella { width: 100%; border-collapse: collapse; font-size: var(--drop-fs-label); }
+.drop-tabella thead th {
+  background: var(--drop-white); color: var(--drop-fg-title); text-align: left;
+  font-weight: var(--drop-w-title);
+  padding: var(--drop-space-3) var(--drop-space-4);
+  border-bottom: 2px solid var(--drop-border);
+}
+.drop-tabella td { padding: var(--drop-space-3) var(--drop-space-4);
+  border-bottom: 1px solid var(--drop-border); color: var(--drop-fg); }
+.drop-tabella--numerica td:not(:first-child), .drop-tabella--numerica th:not(:first-child) {
+  text-align: right; font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 980px) {
+  .drop-footer__inner { grid-template-columns: 1fr; gap: var(--drop-space-8); }
+  .drop-nav__voci { display: none; }
+}

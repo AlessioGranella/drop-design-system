@@ -1,0 +1,11 @@
+export * from './tokens';
+export { asset, assetUrl } from './asset';
+export { Logo } from './components/Logo';
+export { Occhiello } from './components/Occhiello';
+export { Bottone } from './components/Bottone';
+export { Scheda } from './components/Scheda';
+export { BadgeSettore } from './components/BadgeSettore';
+export { Fascia } from './components/Fascia';
+export { Slide } from './components/Slide';
+export { Citazione } from './components/Citazione';
+export { Footer } from './components/Footer';

@@ -1,0 +1,185 @@
+{
+  "generato": "2026-10-16",
+  "voci": [
+    {
+      "file": "brand/esempi/porta-vetrata.jpg",
+      "gruppo": "esempi",
+      "peso": 303582
+    },
+    {
+      "file": "brand/esempi/slide-intro.png",
+      "gruppo": "esempi",
+      "peso": 307489
+    },
+    {
+      "file": "brand/esempi/slide-partner-strategico.png",
+      "gruppo": "esempi",
+      "peso": 1201738
+    },
+    {
+      "file": "brand/esempi/slide-servizi.png",
+      "gruppo": "esempi",
+      "peso": 1494675
+    },
+    {
+      "file": "brand/esempi/slide-settori.png",
+      "gruppo": "esempi",
+      "peso": 1008189
+    },
+    {
+      "file": "brand/esempi/slide-valori.png",
+      "gruppo": "esempi",
+      "peso": 4713818
+    },
+    {
+      "file": "brand/esempi/social/foto-orizzontale.jpg",
+      "gruppo": "esempi",
+      "peso": 79690
+    },
+    {
+      "file": "brand/esempi/social/foto-storia.jpg",
+      "gruppo": "esempi",
+      "peso": 268464
+    },
+    {
+      "file": "brand/esempi/social/foto-verticale.jpg",
+      "gruppo": "esempi",
+      "peso": 87403
+    },
+    {
+      "file": "brand/font/Sora-Bold.ttf",
+      "gruppo": "font",
+      "peso": 57940
+    },
+    {
+      "file": "brand/font/Sora-ExtraBold.ttf",
+      "gruppo": "font",
+      "peso": 57984
+    },
+    {
+      "file": "brand/font/Sora-ExtraLight.ttf",
+      "gruppo": "font",
+      "peso": 58032
+    },
+    {
+      "file": "brand/font/Sora-Light.ttf",
+      "gruppo": "font",
+      "peso": 57968
+    },
+    {
+      "file": "brand/font/Sora-Medium.ttf",
+      "gruppo": "font",
+      "peso": 57916
+    },
+    {
+      "file": "brand/font/Sora-Regular.ttf",
+      "gruppo": "font",
+      "peso": 57800
+    },
+    {
+      "file": "brand/font/Sora-SemiBold.ttf",
+      "gruppo": "font",
+      "peso": 57984
+    },
+    {
+      "file": "brand/font/Sora-Thin.ttf",
+      "gruppo": "font",
+      "peso": 57900
+    },
+    {
+      "file": "brand/loghi/drop-bianco-arancio.svg",
+      "gruppo": "loghi",
+      "peso": 1445
+    },
+    {
+      "file": "brand/loghi/drop-bianco.svg",
+      "gruppo": "loghi",
+      "peso": 1445
+    },
+    {
+      "file": "brand/loghi/drop-descrittore-bianco-arancio.svg",
+      "gruppo": "loghi",
+      "peso": 9832
+    },
+    {
+      "file": "brand/loghi/drop-descrittore-bianco.svg",
+      "gruppo": "loghi",
+      "peso": 9832
+    },
+    {
+      "file": "brand/loghi/drop-descrittore-mono.svg",
+      "gruppo": "loghi",
+      "peso": 9967
+    },
+    {
+      "file": "brand/loghi/drop-descrittore.svg",
+      "gruppo": "loghi",
+      "peso": 9832
+    },
+    {
+      "file": "brand/loghi/drop-mono.svg",
+      "gruppo": "loghi",
+      "peso": 1465
+    },
+    {
+      "file": "brand/loghi/drop.svg",
+      "gruppo": "loghi",
+      "peso": 1445
+    },
+    {
+      "file": "brand/loghi/o-arancio.svg",
+      "gruppo": "loghi",
+      "peso": 383
+    },
+    {
+      "file": "brand/loghi/o-bianco.svg",
+      "gruppo": "loghi",
+      "peso": 383
+    },
+    {
+      "file": "brand/loghi/o-mono.svg",
+      "gruppo": "loghi",
+      "peso": 388
+    },
+    {
+      "file": "brand/loghi/o-teal.svg",
+      "gruppo": "loghi",
+      "peso": 383
+    },
+    {
+      "file": "brand/pattern/goccia-arancio.svg",
+      "gruppo": "pattern",
+      "peso": 4635
+    },
+    {
+      "file": "brand/pattern/goccia-bianco.svg",
+      "gruppo": "pattern",
+      "peso": 4635
+    },
+    {
+      "file": "brand/pattern/goccia-bussola.svg",
+      "gruppo": "pattern",
+      "peso": 4635
+    },
+    {
+      "file": "brand/pattern/goccia-campo.svg",
+      "gruppo": "pattern",
+      "peso": 4635
+    },
+    {
+      "file": "brand/pattern/goccia-paper.svg",
+      "gruppo": "pattern",
+      "peso": 4635
+    },
+    {
+      "file": "brand/pattern/goccia-teal.svg",
+      "gruppo": "pattern",
+      "peso": 4635
+    },
+    {
+      "file": "brand/pattern/goccia-tech.svg",
+      "gruppo": "pattern",
+      "peso": 4635
+    }
+  ]
+}
