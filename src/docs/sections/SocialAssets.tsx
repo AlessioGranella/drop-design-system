@@ -18,6 +18,40 @@ const TAG: Record<Tema, string> = {
   campo: 'Dal campo al digitale', tech: 'Tech for change', bussola: 'La bussola del marketing',
 };
 
+/** Tela Claude Design dei template. Il frammento `artboard-…` è quello che produce
+ *  «Copy link to artboard» nell'editor: un hash del nome del file, quindi se una tavola
+ *  viene rinominata il suo link va ricalcolato. */
+const TELA = 'https://claude.ai/artifact/GtRehEWMUhAZdzTJbanrag';
+const PAGINA = { feed: 'page-0eb17439736d', storie: 'page-0c267c142117' };
+
+/** Per ogni impaginato, i file della tela nell'ordine dei temi di TEMI. */
+const FILE: Record<Layout, [string, string][]> = {
+  copertina: [
+    ['Feed 01', 'artboard-0f16ed180166'], ['Feed 02', 'artboard-8fe1c1b0e06c'], ['Feed 03', 'artboard-52378cd28f97'],
+    ['Feed 04', 'artboard-e546cf17831f'], ['Feed 05', 'artboard-c8230a016f2e'],
+  ],
+  testo: [
+    ['Feed 06', 'artboard-cc5eca1691af'], ['Feed 07', 'artboard-d160f66a34fa'], ['Feed 08', 'artboard-f8b2386447da'],
+    ['Feed 09', 'artboard-c723db8f34b4'], ['Feed 10', 'artboard-3eed1b8c0e90'],
+  ],
+  fotoTesto: [
+    ['Feed 11', 'artboard-4a1f51450fa4'], ['Feed 12', 'artboard-ef6e5dc3a987'], ['Feed 13', 'artboard-6b90c953878a'],
+    ['Feed 14', 'artboard-7bb00e248844'], ['Feed 15', 'artboard-527cd39e38bf'],
+  ],
+  fotoPiena: [
+    ['Feed 16', 'artboard-99a706c90df9'], ['Feed 17', 'artboard-f21647c41f44'], ['Feed 18', 'artboard-49df3d62d09e'],
+    ['Feed 19', 'artboard-a5ba4a7f17f4'], ['Feed 20', 'artboard-4d1e912f6b40'],
+  ],
+  storiaCopertina: [
+    ['Storia 01', 'artboard-38a2d49487ba'], ['Storia 02', 'artboard-d903e42b6a8a'], ['Storia 03', 'artboard-b82bb3764f74'],
+    ['Storia 04', 'artboard-e81b141ba43f'], ['Storia 05', 'artboard-bd74f7d22884'],
+  ],
+  storiaFoto: [
+    ['Storia 06', 'artboard-8cd8a6604c94'], ['Storia 07', 'artboard-61f39640d41e'], ['Storia 08', 'artboard-3bfae65942f2'],
+    ['Storia 09', 'artboard-c9632a0d38f9'], ['Storia 10', 'artboard-4b5364402246'],
+  ],
+};
+
 const SCALA = 0.2;
 const abs = (s: CSSProperties): CSSProperties => ({ position: 'absolute', ...s });
 
@@ -87,12 +121,20 @@ function Riga({ titolo, layout, children }: { titolo: string; layout: Layout; ch
       <h3 style={{ fontSize: 'var(--drop-fs-h4)' }}>{titolo}</h3>
       <p>{children}</p>
       <div className="dx-demo" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--drop-space-4)', overflowX: 'auto' }}>
-        {TEMI.map(([tema, nome]) => (
-          <figure key={tema} style={{ margin: 0 }}>
-            <Post layout={layout} tema={tema} />
-            <figcaption className="drop-small" style={{ marginTop: 'var(--drop-space-2)' }}>{nome}</figcaption>
-          </figure>
-        ))}
+        {TEMI.map(([tema, nome], i) => {
+          const [codice, frammento] = FILE[layout][i];
+          const href = `${TELA}#${frammento}`;
+          return (
+            <figure key={tema} style={{ margin: 0 }}>
+              <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`Apri ${codice} · ${nome} su Claude Design`}>
+                <Post layout={layout} tema={tema} />
+              </a>
+              <figcaption className="drop-small" style={{ marginTop: 'var(--drop-space-2)' }}>
+                <a href={href} target="_blank" rel="noopener noreferrer"><strong>{codice}</strong></a> · {nome}
+              </figcaption>
+            </figure>
+          );
+        })}
       </div>
     </>
   );
@@ -115,9 +157,12 @@ export function SocialAssets() {
         <div className="dx-note">
           <p>
             <strong>Tela dei template:</strong>{' '}
-            <a href="https://claude.ai/artifact/GtRehEWMUhAZdzTJbanrag">claude.ai/artifact/GtRehEWMUhAZdzTJbanrag</a>{' '}
-            · pagine «Feed 4:5» (Feed 01–20) e «Storie 9:16» (Storia 01–10). Si duplica una
-            tavola, si cambiano testi e foto: la struttura non si tocca.
+            <a href={TELA} target="_blank" rel="noopener noreferrer">DROP Post social verticale</a>{' '}
+            · pagine <a href={`${TELA}#${PAGINA.feed}`} target="_blank" rel="noopener noreferrer">«Feed 4:5»</a> (Feed 01–20)
+            e <a href={`${TELA}#${PAGINA.storie}`} target="_blank" rel="noopener noreferrer">«Storie 9:16»</a> (Storia 01–10).
+            Clic su un'anteprima per aprire la sua tavola. Si duplica una tavola, si cambiano
+            testi e foto: la struttura non si tocca. La tela è privata: va condivisa dal menu
+            Condividi a chi deve aprirla.
           </p>
         </div>
 
