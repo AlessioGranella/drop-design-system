@@ -37,6 +37,9 @@ brand book.
    Eccezione: i template social (`tokens.ts` → `social`, DESIGN.md § 11), dove la goccia
    prende l'accento del tema, sta in basso a destra a 905×964 e ha sostituito i cerchi.
 8. **Foto 3:4 o 16:9.** Mai 1:1.
+   **La «O» come maschera**: la O del marchio ad anello ospita la foto nella corona; foro al
+   56,5% del diametro (`oMaschera`), fondo pieno, titolo breve o marchio al centro. Una sola
+   per composizione, mai insieme alla goccia (DESIGN.md § 6).
 9. **Il marchio** non si ruota, non si deforma, non cambia colore, non va allineato a
    destra. L'area di rispetto è X = altezza / 2,3 su ogni lato.
 10. **Spaziature dalla scala** `var(--drop-space-*)`, mai px a mano. Niente angoli vivi.

@@ -1,6 +1,28 @@
 import { asset, assetUrl } from '../../asset';
-import { pattern } from '../../tokens';
+import type { ReactNode } from 'react';
+import { pattern, oMaschera } from '../../tokens';
 import { Codice } from '../Codice';
+
+/** La «O» come maschera: foto nella corona, fondo pieno e contenuto nel foro. */
+function OMaschera({ fondo, foto, didascalia, children }: { fondo: string; foto: string; didascalia: string; children: ReactNode }) {
+  const d = 260;
+  const foro = oMaschera.foro(d);
+  return (
+    <figure style={{ margin: 0 }}>
+      <div style={{ position: 'relative', width: d + 40, height: d + 40, background: fondo, borderRadius: 'var(--drop-radius-md)', display: 'grid', placeItems: 'center' }}>
+        <div style={{ position: 'relative', width: d, height: d, borderRadius: '50%', overflow: 'hidden',
+                      background: `center / cover no-repeat ${assetUrl(foto)}` }}>
+          <div style={{ position: 'absolute', left: (d - foro) / 2, top: (d - foro) / 2, width: foro, height: foro, borderRadius: '50%',
+                        background: fondo, display: 'grid', placeItems: 'center', textAlign: 'center',
+                        font: '700 20px/1.2 var(--drop-font)' }}>
+            <div>{children}</div>
+          </div>
+        </div>
+      </div>
+      <figcaption className="drop-caption" style={{ marginTop: 'var(--drop-space-2)' }}>{didascalia}</figcaption>
+    </figure>
+  );
+}
 
 export function StileVisivo() {
   return (
@@ -57,6 +79,44 @@ export function StileVisivo() {
   <span class="⟦drop-pattern⟧" style="--drop-pattern-src: url(brand/pattern/goccia-bianco.svg)"></span>
   <div class="drop-fascia__inner">…</div>
 </section>`}</Codice>
+      </section>
+
+      <section className="dx-section">
+        <h2>La «O» come maschera</h2>
+        <p>
+          La «O» del marchio, ingrandita ad anello, diventa una maschera fotografica: la foto vive
+          dentro la corona, il foro prende il colore del fondo e ospita un titolo breve o il
+          marchio. È il segno di aperture e chiusure — caroselli, deck, copertine.
+        </p>
+        <div className="dx-demo" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--drop-space-6)' }}>
+          <OMaschera fondo="#021222" foto="brand/esempi/social/carosello/car-turbine.jpg" didascalia="Apertura · titolo nel foro">
+            <span style={{ color: 'var(--drop-orange)' }}>Drop</span><br />
+            <span style={{ color: '#E3EFFA' }}>25 anni<br />di digitale</span>
+          </OMaschera>
+          <OMaschera fondo="#E3EFFA" foto="brand/esempi/social/carosello/car-campo.jpg" didascalia="Chiusura · marchio nel foro">
+            <img src={asset('brand/loghi/drop.svg')} alt="DROP" style={{ width: '62%' }} />
+          </OMaschera>
+        </div>
+        <div className="dx-do-dont">
+          <div className="dx-do">
+            <h4>Sempre</h4>
+            <ul>
+              <li>Foro al {(oMaschera.rapportoForo * 100).toLocaleString('it-IT', { maximumFractionDigits: 1 })}% del diametro esterno: <code>oMaschera.foro(d)</code>.</li>
+              <li>Nella corona solo fotografia, a riempimento.</li>
+              <li>Nel foro il colore pieno del fondo, e al centro un titolo di massimo tre righe oppure il marchio.</li>
+              <li>Cerchio perfetto, centrato; al massimo pochi pixel a filo dei lati.</li>
+            </ul>
+          </div>
+          <div className="dx-dont">
+            <h4>Mai</h4>
+            <ul>
+              <li>Colori pieni, pattern o testo dentro la corona.</li>
+              <li>Titolo e marchio insieme nel foro, o una seconda foto.</li>
+              <li>Più di una O nella stessa composizione, o la O insieme alla goccia.</li>
+              <li>Ovale, ruotata o tagliata dai bordi della tavola.</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section className="dx-section">

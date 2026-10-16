@@ -362,7 +362,7 @@ export function SocialAssets() {
           <div className="dx-do">
             <h4>Sempre</h4>
             <ul>
-              <li>Apertura e chiusura ad anello: foto dentro un anello (esterno 1058 / interno 598 in apertura, 960 / 544 in chiusura), testo o logo al centro.</li>
+              <li>Apertura e chiusura con la «O» come maschera (regola in <a href="#stile">Pattern e fotografia</a>): Ø 1058 / foro 598 in apertura, Ø 960 / foro 544 in chiusura, titolo o marchio al centro.</li>
               <li>Freccia in basso a destra (tratto 8 px) su tutte le slide tranne l'ultima: paper sullo scuro e sulle foto, arancione sul chiaro.</li>
               <li>Continuità: 18–20 px della foto della slide successiva sul bordo destro, e di quella precedente sul bordo sinistro.</li>
               <li>Slide di contenuto: titolo Sora 700 80/96 (60/72 se c'è il corpo), in alto a 46–49 px.</li>

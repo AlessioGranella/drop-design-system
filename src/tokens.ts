@@ -176,3 +176,20 @@ export const social = {
     gocciaOpacita: 0.10,
   },
 } as const;
+
+/**
+ * La «O» come maschera — regola fissata il 16/10/2026. La O del marchio, ingrandita ad
+ * anello, diventa una maschera fotografica: la foto vive dentro la corona, il foro ha il
+ * colore del fondo e ospita un titolo breve o il marchio. Proporzioni dei template social
+ * (non quelle esatte della O nel logo, che ha il foro al 60,7%).
+ */
+export const oMaschera = {
+  /** Diametro del foro / diametro esterno. */
+  rapportoForo: 0.565,
+  esempi: {
+    aperturaCarosello: { diametro: 1058, foro: 598, centro: [531, 661] as const },
+    chiusuraCarosello: { diametro: 960, foro: 544, centro: [540, 675] as const },
+  },
+  /** Diametro del foro a partire dal diametro esterno. */
+  foro: (diametro: number) => Math.round(diametro * 0.565),
+} as const;
